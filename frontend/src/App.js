@@ -7,12 +7,12 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import POTD from "./component/POTD";
 import Login from "./component/Login";
 import Register from "./component/Register";
+import ContactUs from "./component/ContactUs";
 
 
 function App() {
   const [mode, setMode] = useState("light"); // whether dark mode is enabled or not
   const [alert, setAlert] = useState(null); // alert is an object
-
   // type : danger, success, primary ...
   const showAlert = (message, type) => {
     setAlert({
@@ -45,6 +45,7 @@ function App() {
           <Route path="/login" element={<Login mode={mode} showAlert={showAlert}/>} />
           <Route path="/register" element={<Register mode={mode} showAlert={showAlert}/>} />
           <Route path="/potd" element={<POTD mode={mode} showAlert={showAlert}/>} />
+          <Route path="/contact" element={<ContactUs mode={mode} showAlert={showAlert}/>} />
           {/* If None of the path matches , then it will show the default homepage */}
           <Route path="*" element={<CodeExecution mode={mode} showAlert={showAlert} />} />
       </Routes>

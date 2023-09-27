@@ -10,6 +10,7 @@ const codeModel = require('./codeModel');
 app.use(cors());
 app.use(express.json());
 
+
 app.get("/", (req, res) => {
   console.log("backend worked");
   res.send("Welcome to backend");

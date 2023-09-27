@@ -1,6 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from '@mui/material/Button';
-
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import Typography from '@mui/material/Typography';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import questionBank from './questionBank.json';
 
 function CodeExecution(props) {
   const [code, setCode] = useState("");
@@ -10,7 +15,13 @@ function CodeExecution(props) {
   const [languages, setLanguages] = useState([]);
   const [output, setOutput] = useState();
   const [bool, setBool] = useState(false);
-
+  const [question, setquestion] = useState(""); // Storing Question of the day.
+  
+  useEffect(() => {
+    let rand = Math.floor((Math.random() * 10) + 1);
+    setquestion(questionBank[rand]);
+  }, [])
+  
   const getLanguages = async () => {
     if (bool === true) return;
     const response = await fetch("http://localhost:5500/getLanguages", {
@@ -84,6 +95,22 @@ function CodeExecution(props) {
 
   return (
     <>
+      <div className="container my-3">
+        <Accordion>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel1a-content"
+            id="panel1a-header"
+          >
+            <Typography style={{textAlign:"center"}}>GET RANDOM PROBLEM</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Typography>
+              {question}
+            </Typography>
+          </AccordionDetails>
+        </Accordion>
+      </div>
       <form
         onSubmit={HandleCode}
         className="container mt-4"

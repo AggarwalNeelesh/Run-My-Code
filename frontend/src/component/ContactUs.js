@@ -2,20 +2,20 @@ import React, {useState} from 'react'
 import { TextField, Button, Container, Stack } from '@mui/material';
 import { Link } from "react-router-dom"
 
-function Register() {
-  const [firstName, setFirstName] = useState('')
+function ContactUs() {
+    const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
     const [email, setEmail] = useState('')
-    const [dateOfBirth, setDateOfBirth] = useState('dd-mm-yy')
-    const [password, setPassword] = useState('')
+    const [number, setNumber] = useState('')
+    const [message, setMessage] = useState('')
  
     function handleSubmit(event) {
         event.preventDefault();
-        console.log(firstName, lastName, email, dateOfBirth, password) 
+        console.log(firstName, lastName, email, number, message);
     }
   return (
     <div className='container my-3'>
-            <h3>Register Form</h3>
+            <h3>Contact Us</h3>
             <form onSubmit={handleSubmit} action={<Link to="/login" />} className='my-3'>
                 <Stack spacing={2} direction="row" sx={{marginBottom: 4}}>
                     <TextField
@@ -39,44 +39,44 @@ function Register() {
                         required
                     />
                 </Stack>
+                <Stack>
+                    <TextField
+                        type="email"
+                        variant='outlined'
+                        color='secondary'
+                        label="Email"
+                        onChange={e => setEmail(e.target.value)}
+                        value={email}
+                        fullWidth
+                        required
+                        sx={{mb: 4}}
+                    />
+                    <TextField
+                        type="number"
+                        variant='outlined'
+                        color='secondary'
+                        label="Contact Number"
+                        onChange={e => setNumber(e.target.value)}
+                        value={number}
+                        fullWidth
+                        sx={{mb: 4}}
+                    />
+                </Stack>
                 <TextField
-                    type="email"
+                    type="text"
                     variant='outlined'
                     color='secondary'
-                    label="Email"
-                    onChange={e => setEmail(e.target.value)}
-                    value={email}
+                    label="Message"
+                    onChange={e => setMessage(e.target.value)}
+                    value={message}
                     fullWidth
-                    required
+                    rows={3}
                     sx={{mb: 4}}
                 />
-                <TextField
-                    type="password"
-                    variant='outlined'
-                    color='secondary'
-                    label="Password"
-                    onChange={e => setPassword(e.target.value)}
-                    value={password}
-                    required
-                    fullWidth
-                    sx={{mb: 4}}
-                />
-                <TextField
-                    type="date"
-                    variant='outlined'
-                    color='secondary'
-                    label="Date of Birth"
-                    onChange={e => setDateOfBirth(e.target.value)}
-                    value={dateOfBirth}
-                    fullWidth
-                    required
-                    sx={{mb: 4}}
-                />
-                <Button variant="outlined" color="secondary" type="submit">Register</Button>
+                <Button variant="outlined" color="secondary" type="submit">Submit</Button>
             </form>
-            <small>Already have an account? <Link to="/login">Login Here</Link></small>
      
         </div>
     )
 }
-export default Register;
+export default ContactUs;
