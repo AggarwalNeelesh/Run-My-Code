@@ -14,7 +14,8 @@ function Register() {
         console.log(firstName, lastName, email, dateOfBirth, password) 
     }
   return (
-    <div className='container my-3'>
+    <div className='container my-4 px-5 py-3'
+    style={{border:"2px solid grey",'border-radius':'10px','box-shadow':'3px 3px grey'}}>
             <h3>Register Form</h3>
             <form onSubmit={handleSubmit} action={<Link to="/login" />} className='my-3'>
                 <Stack spacing={2} direction="row" sx={{marginBottom: 4}}>

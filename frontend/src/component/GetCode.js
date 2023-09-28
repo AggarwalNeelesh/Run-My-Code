@@ -39,7 +39,7 @@ export default function GetCode(props){
       }
   }
   return (
-    <Accordion className='mx-3' >
+    <Accordion className='mx-3 '>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls="panel1a-content"
@@ -53,7 +53,8 @@ export default function GetCode(props){
         <Typography ><h5>{props.idx + 1}. {props.code.title}</h5></Typography>
       </AccordionSummary>
       <AccordionDetails style={{
-          backgroundColor: props.mode === "dark" ? "grey" : "white"
+          backgroundColor: props.mode === "dark" ? "grey" : "white",
+          border: "2px solid grey"
         }}>
         <Typography >
           <div className="row">

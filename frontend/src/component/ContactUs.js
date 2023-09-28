@@ -1,40 +1,39 @@
 import React, {useState} from 'react'
-import { TextField, Button, Container, Stack } from '@mui/material';
-import { Link } from "react-router-dom"
+import { TextField, Button, Stack } from '@mui/material';
+import emailjs from 'emailjs-com';
 
-function ContactUs() {
-    const [firstName, setFirstName] = useState('')
-    const [lastName, setLastName] = useState('')
+function ContactUs(props) {
+    const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [number, setNumber] = useState('')
+    const [subject, setSubject] = useState('')
     const [message, setMessage] = useState('')
- 
-    function handleSubmit(event) {
-        event.preventDefault();
-        console.log(firstName, lastName, email, number, message);
+    const handleForm =(e)=> {
+        e.preventDefault();
+        emailjs.sendForm('service_qvtj0bc', 'template_8anfeo6', e.target, 'jUjBJzaANEV6I2ZKe')
+        .then((result) => {
+            window.location.reload()  //This is if you still want the page to reload (since e.preventDefault() cancelled that behavior) 
+            props.showAlert("Email Sent Successfully", "primary");
+        }, (error) => {
+            console.log(error.text);
+            props.showAlert("Error occured in sending Email. PLease try after some time...", "warning");
+        });
     }
   return (
-    <div className='container my-3'>
+    <div className='container my-4 px-5 py-3'
+        style={{border:"2px solid grey",'border-radius':'10px','box-shadow':'3px 3px grey'}}
+    >
             <h3>Contact Us</h3>
-            <form onSubmit={handleSubmit} action={<Link to="/login" />} className='my-3'>
+            <form onSubmit={handleForm} className='my-3'>
                 <Stack spacing={2} direction="row" sx={{marginBottom: 4}}>
                     <TextField
                         type="text"
                         variant='outlined'
                         color='secondary'
-                        label="First Name"
-                        onChange={e => setFirstName(e.target.value)}
-                        value={firstName}
-                        fullWidth
-                        required
-                    />
-                    <TextField
-                        type="text"
-                        variant='outlined'
-                        color='secondary'
-                        label="Last Name"
-                        onChange={e => setLastName(e.target.value)}
-                        value={lastName}
+                        name="from_name"
+                        label="Full Name"
+                        onChange={e => setName(e.target.value)}
+                        value={name}
                         fullWidth
                         required
                     />
@@ -45,6 +44,7 @@ function ContactUs() {
                         variant='outlined'
                         color='secondary'
                         label="Email"
+                        name="from_email"
                         onChange={e => setEmail(e.target.value)}
                         value={email}
                         fullWidth
@@ -55,6 +55,7 @@ function ContactUs() {
                         type="number"
                         variant='outlined'
                         color='secondary'
+                        name="contact_number"
                         label="Contact Number"
                         onChange={e => setNumber(e.target.value)}
                         value={number}
@@ -62,17 +63,32 @@ function ContactUs() {
                         sx={{mb: 4}}
                     />
                 </Stack>
-                <TextField
-                    type="text"
-                    variant='outlined'
-                    color='secondary'
-                    label="Message"
-                    onChange={e => setMessage(e.target.value)}
-                    value={message}
-                    fullWidth
-                    rows={3}
-                    sx={{mb: 4}}
-                />
+                <Stack>
+                    <TextField
+                        type="text"
+                        variant='outlined'
+                        color='secondary'
+                        name="subject"
+                        label="Subject"
+                        onChange={e => setSubject(e.target.value)}
+                        value={subject}
+                        fullWidth
+                        multiline
+                        maxRows={4}
+                        sx={{mb: 4}}
+                    />
+                    <TextField
+                        type="text"
+                        variant='outlined'
+                        color='secondary'
+                        name="message"
+                        label="Message"
+                        onChange={e => setMessage(e.target.value)}
+                        value={message}
+                        fullWidth
+                        sx={{mb: 4}}
+                    />
+                </Stack>
                 <Button variant="outlined" color="secondary" type="submit">Submit</Button>
             </form>
      
@@ -80,3 +96,16 @@ function ContactUs() {
     )
 }
 export default ContactUs;
+/*
+First, we load our EmailJS SDK
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+Second, we initialize the SDK with our public key
+
+Public Key : jUjBJzaANEV6I2ZKe
+
+emailjs.init('YOUR_PUBLIC_KEY');
+Third, we submit our contact form and send it through EmailJS, using our Contact Service and Contact Form:
+
+emailjs.sendForm('contact_service', 'contact_form', this)
+*/

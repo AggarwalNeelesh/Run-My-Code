@@ -66,8 +66,8 @@ function AllCodes(props) {
   else{
     return (
       <>
-        <div className='mx-2 my-4'>
-        <h4 class="my-2" style={{color: props.mode === "dark" ? "white" : "black"}}>Preview Previous Codes :</h4>
+        <div className='mx-4 my-4 '>
+        <h4 className="my-4 mx-2" style={{color: props.mode === "dark" ? "white" : "black"}}>Preview Previous Codes :</h4>
           {
             Codes.map((code, i)=>{
               return <GetCode code={code} key={i} idx={i} mode={props.mode} deletecode={deletecode} showAlert={props.showAlert}/>

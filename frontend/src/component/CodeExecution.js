@@ -97,14 +97,22 @@ function CodeExecution(props) {
     <>
       <div className="container my-3">
         <Accordion>
-          <AccordionSummary
+        <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel1a-content"
-            id="panel1a-header"
+            id="panel1a-header" 
+            style={{
+              backgroundColor: "#042743",
+              color: "white",
+              border: props.mode === "dark" ? "2px solid white" : "2px solid gery",
+            }}
           >
-            <Typography style={{textAlign:"center"}}>GET RANDOM PROBLEM</Typography>
+            <Typography>GET RANDOM PROBLEM</Typography>
           </AccordionSummary>
-          <AccordionDetails>
+          <AccordionDetails style={{
+            backgroundColor: props.mode === "dark" ? "grey" : "white",
+            border: "2px solid grey"
+          }}>
             <Typography>
               {question}
             </Typography>
